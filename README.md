@@ -1,5 +1,10 @@
 # Documentação da Atividade 1
 
+## Observação
+- Esse projeto possui 2 códigos, um feito apenas para simulação no wokwi e o outro para funcionamento na placa.
+- O projeto para simulação está acima na pasta da atividade_01, nele o led amarelo está conectado no pino GPIO 12 que orinalmente pertence ao led azul, então se o código for testado na placa ele ira piscar na cor azul e não na cor amarela, pois ele foi feito apenas para a simulação no wokwi.
+- O projeto que foi testado na placa está aqui no arquivo README, logo abaixo, junto do vídeo com o funcionamento na minha placa.
+
 ## Descrição
 Este projeto implementa um semáforo utilizando um Raspberry Pi Pico W. Três LEDs (verde, amarelo e vermelho) são acionados sequencialmente em intervalos regulares, simulando o funcionamento de um semáforo de trânsito.
 
@@ -21,18 +26,25 @@ O programa realiza as seguintes etapas:
    - Exibe mensagens no terminal indicando o estado do semáforo.
   
 ## Funcinamento na placa
-- Para o funcionamento na placa o código teve que ser levemente alterado, combinando as Leds RGB vermelha e verde ligadas ao mesmo tempo para ligar a luz amarela.
+- Para o funcionamento na placa o código teve que ser levemente alterado, combinando o Led rgb vermelho e verde ligados ao mesmo tempo para resultar na luz amarela.
 - Código:
--  
+  ![image](https://github.com/user-attachments/assets/0d03c473-65bd-4e07-a045-57a09273cbb7)
+  ![image](https://github.com/user-attachments/assets/d363963a-b05e-4332-ae68-1c32f94a4eb6)
+  
+- Vídeo com o funcionamento na placa:
+  https://drive.google.com/file/d/1xGrZY-xykx14ETYl1HkR04P7r54BgdPt/view?usp=sharing
+
 
 
 # Documentação da Atividade 2
 
-Esta documentação descreve detalhadamente a **Atividade 2**, que tem como objetivo controlar três LEDs (azul, vermelho e verde) conectados a um Raspberry Pi Pico W. A lógica do sistema é acionada por um botão e envolve o acendimento simultâneo dos LEDs e seu desligamento sequencial após intervalos específicos.
+## Descrição
+
+Tem como objetivo controlar três LEDs (azul, vermelho e verde) conectados a um Raspberry Pi Pico W. A lógica do sistema é acionada por um botão e envolve o acendimento simultâneo dos LEDs e seu desligamento sequencial após intervalos específicos.
 
 ---
 
-## 1. Objetivo da Atividade
+## 1. Lógica de funcionamento
 
 Quando o botão (conectado ao GPIO5) for pressionado:
 - **Passo 1:** Todos os três LEDs são acesos simultaneamente.
@@ -43,12 +55,8 @@ Quando o botão (conectado ao GPIO5) for pressionado:
 
 ---
 
-## 2. Componentes e Conexões
 
-### 2.1. Microcontrolador
-- **Raspberry Pi Pico W**
-
-### 2.2. Componentes Utilizados
+### 2. Componentes Utilizados
 - **LEDs:**
   - **LED Azul:** Conectado ao pino **GPIO12**
   - **LED Vermelho:** Conectado ao pino **GPIO13**
@@ -58,42 +66,15 @@ Quando o botão (conectado ao GPIO5) for pressionado:
 - **Resistores de 330 Ω:**
   - Limitam a corrente dos LEDs
 
-### 2.3. Conexões no Diagrama Wokwi
-- **LEDs:**
-  - O anodo de cada LED é ligado a um resistor que, por sua vez, está conectado ao respectivo pino GPIO.
-  - Os cátodos dos LEDs estão conectados ao GND.
-- **Botão:**
-  - Um terminal do botão está ligado ao **GPIO5**.
-  - O outro terminal está ligado ao **GND**.
-  - Com o resistor pull-up ativo, o pino fica em nível alto em repouso e passa a nível baixo quando o botão é pressionado.
-
 ---
 
-## 3. Funcionamento do Código
+## 3. Funcionamento  na placa
+- **Observação**
+- Quando todas as leds acenderem, o Led RGB ira piscar na luz branca, devido a junção das luzes (vermelha, azul e verde), pois o Led RGB na placa é só um (com 3 entradas GPIO), não há como representar as 3 luzes ao mesmo tempo, por isso a alteração para a luz branca, quando 2 leds (vermelha e verde) estiverem acesas, ele piscara na luz amarela pelo mesmo motivo, e por fim quando apenas 1 (verde) estiver acesa ele piscara na cor verde. 
+- Link do video com o funcionamento: https://drive.google.com/file/d/1xJgeLdpOk8-lXU2GliNBmuUyJbgvTMAE/view?usp=sharing
 
-### 3.1. Inicialização (Função `setup()`)
 
-- **Comunicação Serial:**  
-  O sistema inicia a comunicação serial por `Serial1` (baud rate de 115200), permitindo a depuração por mensagens no monitor serial.
-  
-- **Configuração dos Pinos:**  
-  - Os pinos dos LEDs (**GPIO12**, **GPIO13** e **GPIO11**) são configurados como **saída**.
-  - O pino do botão (**GPIO5**) é configurado como **entrada** com **pull-up** para garantir que, em repouso, o pino esteja em nível alto.
 
-### 3.2. Loop Principal (Função `loop()`)
 
-- **Detecção do Botão com Debounce:**  
-  - O código verifica continuamente se o botão foi pressionado (ou seja, se o valor lido em `BUTTON` é `LOW`).
-  - Um debounce de 300ms é implementado para evitar leituras repetidas devido a ruídos ou múltiplas detecções em uma única pressão.
-
-- **Acionamento dos LEDs:**  
-  - Se o botão for pressionado e o sistema não estiver em processo de execução (`process_running == false`), o tempo atual é registrado e os três LEDs são acesos simultaneamente.
-  - Uma mensagem de depuração é enviada via Serial informando que os LEDs foram acesos.
-
-- **Sequência de Desligamento dos LEDs:**  
-  - **Após 3 segundos:** O LED azul (GPIO12) é desligado.
-  - **Após 4 segundos:** O LED vermelho (GPIO13) é desligado.
-  - **Após 5 segundos:** O LED verde (GPIO11) é desligado.
-  - Após a conclusão da sequência, a variável de controle é resetada, permitindo que um novo acionamento seja realizado.
 
 ---
