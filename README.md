@@ -1,3 +1,30 @@
+# Documentação da Atividade 1
+
+## Descrição
+Este projeto implementa um semáforo utilizando um Raspberry Pi Pico W. Três LEDs (verde, amarelo e vermelho) são acionados sequencialmente em intervalos regulares, simulando o funcionamento de um semáforo de trânsito.
+
+## Componentes Utilizados
+- **Raspberry Pi Pico W**
+- **LED Verde** conectado ao GPIO 11
+- **LED Amarelo** conectado ao GPIO 12
+- **LED Vermelho** conectado ao GPIO 13
+- **Resistores de 330Ω** em série com os LEDs
+- **Conexão ao GND no GPIO 8**
+
+## Funcionamento
+O programa realiza as seguintes etapas:
+1. Inicializa os pinos GPIO do Raspberry Pi Pico W para os LEDs e o GND.
+2. Configura um temporizador para alternar os LEDs a cada 3 segundos.
+3. No callback do temporizador:
+   - Desliga todos os LEDs.
+   - Acende o LED correspondente ao estado atual do semáforo (vermelho -> amarelo -> verde -> vermelho).
+   - Exibe mensagens no terminal indicando o estado do semáforo.
+  
+## Funcinamento na placa
+- Para o funcionamento na placa o código teve que ser levemente alterado, combinando as Leds RGB vermelha e verde ligadas ao mesmo tempo para ligar a luz amarela.
+- Código:
+-  
+
 
 # Documentação da Atividade 2
 
