@@ -3,7 +3,7 @@
 #include "hardware/timer.h"
 
 #define LED_GREEN 11  
-#define LED_YELLOW 12 
+#define LED_YELLOW 12 //utilizei o pino 12 que normalmente é pra cor azul só para a simulação no wokwi
 #define LED_RED 13  
 
 #define GND 8  
